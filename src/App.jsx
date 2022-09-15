@@ -1,12 +1,10 @@
 // import logo from './logo.svg';
 import './App.css';
-import {useState} from 'react'
+// import {useState} from 'react'
 
 function App({name, greetings = 'Hello Again', style}) {
 
   const h2Style = !style ? greetings.toLowerCase() === 'bye' ? {background: 'red'} : {background: 'blue'} : {background: style.background}
-
-  let [value, changeValue] = useState('')
 
   return (
     <>
