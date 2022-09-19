@@ -67,13 +67,16 @@ export default function ToDo() {
   return (
     <>
       <input
+        style={{ marginTop: 5 }}
         autoComplete="off"
         value={inputValue}
         id="inputTask"
         onChange={inputChange}
       ></input>
-      <button onClick={addTodo}>Add</button>
-      <p className="warning" style={{ color: "red", display: "none" }}>
+      <button style={{ marginLeft: 15 }} className="btn btn-outline-primary" onClick={addTodo}>
+        Add
+      </button>
+      <p className="invalid-feedback warning" style={{ color: "red", display: "none" }}>
         Cannot add empty task!
       </p>
       <br />
