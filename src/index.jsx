@@ -13,7 +13,7 @@ ReactDOM.render(
     <App greetings = 'Hi' name='Jatin' />
     <App greetings = 'Bye' name='Sagar' style={{background: 'green'}}/>
     <App name='Sagar' style={{background: 'yellow'}}/> */}
-    
+
     {/* <h2>Toggler:</h2>
     <Toggler />
     <br /><hr /><br />
@@ -27,4 +27,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
