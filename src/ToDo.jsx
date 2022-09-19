@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Task from "./Task";
 
 let taskNumber = 0;
 
@@ -80,11 +81,7 @@ export default function ToDo() {
       <div id="undoneTasks">
         {undoneTaskList.map((task) => (
           <div key={task.id}>
-            <input
-              type="checkbox"
-              onChange={(event) => taskChange(event, task.id)}
-            />{" "}
-            <label>{task.task}</label>
+            <Task task={task} taskChange={taskChange}/>
           </div>
         ))}
       </div>
@@ -94,14 +91,7 @@ export default function ToDo() {
       <div id="doneTasks">
         {doneTaskList.map((task) => (
           <div key={task.id}>
-            <input
-              type="checkbox"
-              checked="checked"
-              onChange={(event) => taskChange(event, task.id)}
-            />{" "}
-            <label style={{ textDecoration: "line-through" }}>
-              {task.task}
-            </label>
+            <Task task={task} taskChange={taskChange} checked="checked"/>
           </div>
         ))}
       </div>
