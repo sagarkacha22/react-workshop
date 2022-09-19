@@ -1,7 +1,7 @@
+import React from "react"
 import { useState } from "react";
 import Task from "./Task";
-
-let taskNumber = 0;
+import {v4 as uuid} from "uuid"
 
 export default function ToDo() {
   let [undoneTaskList, updateUndoneTaskList] = useState([]);
@@ -9,11 +9,11 @@ export default function ToDo() {
   let [inputValue, updateInputValue] = useState("");
 
   let addTodo = () => {
-    taskNumber += 1;
+    
     document.getElementById("inputTask").value &&
       updateUndoneTaskList((oldTaskList) => [
         ...oldTaskList,
-        { id: taskNumber, task: document.getElementById("inputTask").value },
+        { id: uuid(), task: document.getElementById("inputTask").value },
       ]);
     if (
       !document.getElementById("inputTask").value &&
