@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import ToDo from "./ToDo";
+// import ToDo from "./ToDo";
 // import App from "./App";
 // import Toggler from "./Toogler";
 // import Counter from "./Counter";
 // import Input from "./Input";
+import SignUp from "./SignUp";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,7 +24,10 @@ ReactDOM.render(
     <h2>Input:</h2>
     <Input defaultValue='hi'/> */}
 
-    <ToDo />
+    {/* <ToDo /> */}
+
+    <SignUp />
+
   </React.StrictMode>,
   document.getElementById("root")
 );
