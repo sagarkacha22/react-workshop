@@ -81,7 +81,7 @@ export default function ToDo() {
       <div id="undoneTasks">
         {undoneTaskList.map((task) => (
           <div key={task.id}>
-            <Task task={task} taskChange={taskChange}/>
+            <Task task={task} taskChange={taskChange} />
           </div>
         ))}
       </div>
@@ -91,7 +91,7 @@ export default function ToDo() {
       <div id="doneTasks">
         {doneTaskList.map((task) => (
           <div key={task.id}>
-            <Task task={task} taskChange={taskChange} checked="checked"/>
+            <Task task={task} taskChange={taskChange} checked="checked" />
           </div>
         ))}
       </div>
