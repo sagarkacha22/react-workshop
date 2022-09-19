@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
 import { useState } from "react";
 import Task from "./Task";
-import {v4 as uuid} from "uuid"
+import { v4 as uuid } from "uuid";
 
 export default function ToDo() {
   let [undoneTaskList, updateUndoneTaskList] = useState([]);
@@ -9,7 +9,6 @@ export default function ToDo() {
   let [inputValue, updateInputValue] = useState("");
 
   let addTodo = () => {
-    
     document.getElementById("inputTask").value &&
       updateUndoneTaskList((oldTaskList) => [
         ...oldTaskList,
@@ -67,23 +66,30 @@ export default function ToDo() {
   return (
     <>
       <input
-        style={{ marginTop: 5 }}
+        style={{ margin: 10 }}
         autoComplete="off"
         value={inputValue}
         id="inputTask"
         onChange={inputChange}
       ></input>
-      <button style={{ marginLeft: 15 }} className="btn btn-outline-primary" onClick={addTodo}>
+      <button
+        style={{ marginLeft: 15 }}
+        className="btn btn-outline-primary"
+        onClick={addTodo}
+      >
         Add
       </button>
-      <p className="invalid-feedback warning" style={{ color: "red", display: "none" }}>
+      <p
+        className="invalid-feedback warning"
+        style={{ color: "red", display: "none" }}
+      >
         Cannot add empty task!
       </p>
       <br />
       <br />
       <div id="undoneTasks">
         {undoneTaskList.map((task) => (
-          <div key={task.id}>
+          <div key={task.id} style={{ margin: 5 }}>
             <Task task={task} taskChange={taskChange} />
           </div>
         ))}
@@ -93,7 +99,7 @@ export default function ToDo() {
       <br />
       <div id="doneTasks">
         {doneTaskList.map((task) => (
-          <div key={task.id}>
+          <div key={task.id} style={{ margin: 5 }}>
             <Task task={task} taskChange={taskChange} checked="checked" />
           </div>
         ))}
