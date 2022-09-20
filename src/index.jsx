@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import LogIn from "./LogIn";
 // import ToDo from "./ToDo";
 // import App from "./App";
 // import Toggler from "./Toogler";
@@ -26,7 +27,18 @@ ReactDOM.render(
 
     {/* <ToDo /> */}
 
-    <SignUp />
+    <div className="container">
+      <div className="row">
+        <div className="col-sm border-end">
+          <h3>Sign Up</h3><br />
+          <SignUp />
+        </div>
+        <div className="col-sm">
+          <h3>Log In</h3><br />
+          <LogIn />
+        </div>
+      </div>
+    </div>
 
   </React.StrictMode>,
   document.getElementById("root")

@@ -54,13 +54,20 @@ function SignUp() {
     if (document.querySelectorAll("[name=gender]:checked").length > 0) {
       document.querySelectorAll("[name=gender]:checked")[0].checked = false;
     }
-    locationChange("")
+    locationChange("");
     document.getElementById("terms").checked = false;
+    Array.from(
+      document
+        .getElementById("signup")
+        .getElementsByClassName("invalid-feedback")
+    ).forEach((element) => {
+      element.style.display = "none";
+    });
   };
 
   return (
-    <form noValidate>
-      <div className="m-3">
+    <form id="signup" noValidate>
+      <div className="">
         <label className="form-label" style={{ marginRight: 15 }}>
           Name:
         </label>
@@ -70,12 +77,12 @@ function SignUp() {
           className="form-control"
           value={name}
           onChange={() => updateName(document.getElementById("name").value)}
-          style={{ width: "20%", display: "inline-block" }}
+          style={{ width: "40%", display: "inline-block" }}
         ></input>
         <p className="warning-name invalid-feedback">Please enter your Name!</p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
-      <div className="m-3">
+      <hr style={{}} />
+      <div className="">
         <label className="form-label" style={{ marginRight: 15 }}>
           Email ID:
         </label>
@@ -87,14 +94,14 @@ function SignUp() {
           onChange={() =>
             updateEmailValue(document.getElementById("email").value)
           }
-          style={{ width: "20%", display: "inline-block" }}
+          style={{ width: "50%", display: "inline-block" }}
         ></input>
         <p className="warning-email invalid-feedback">
           Please enter valid Email ID!
         </p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
-      <div className="m-3">
+      <hr style={{}} />
+      <div className="">
         <label className="form-label" style={{ marginRight: 15 }}>
           Age:
         </label>
@@ -104,12 +111,12 @@ function SignUp() {
           value={age}
           onChange={() => updateAge(document.getElementById("age").value)}
           className="form-control"
-          style={{ width: "5%", display: "inline-block" }}
+          style={{ width: "10%", display: "inline-block" }}
         ></input>
         <p className="warning-age invalid-feedback">You must be above 18!</p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
-      <div className="m-3">
+      <hr style={{}} />
+      <div className="">
         <label className="form-label" style={{ marginRight: 15 }}>
           Gender:
         </label>
@@ -142,12 +149,12 @@ function SignUp() {
         </label>
         <p className="warning-gender invalid-feedback">Please choose Gender!</p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
-      <div className="m-3">
+      <hr style={{}} />
+      <div className="">
         <select
           id="location"
           className="form-select"
-          style={{ width: "20%" }}
+          style={{ width: "50%" }}
           value={locationValue}
           onChange={() =>
             locationChange(document.getElementById("location").value)
@@ -167,8 +174,8 @@ function SignUp() {
           Please select your Location!
         </p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
-      <div className="m-3">
+      <hr style={{}} />
+      <div className="">
         <input
           id="terms"
           className="form-check-input me-2"
@@ -181,15 +188,15 @@ function SignUp() {
           Please agree to Terms & Conditions!
         </p>
       </div>
-      <hr style={{ width: "25%", marginLeft: 15 }} />
+      <hr style={{}} />
       <button
-        className="btn btn-outline-primary m-3"
+        className="btn btn-outline-primary me-3"
         type="submit"
         onClick={submitForm}
       >
         Submit
       </button>
-      <button className="btn btn-outline-primary m-3" onClick={clearForm}>
+      <button className="btn btn-outline-primary" onClick={clearForm}>
         Clear
       </button>
     </form>
