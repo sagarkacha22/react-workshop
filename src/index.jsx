@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Body from "./Body";
-import Header from "./Header";
+// import Body from "./Body";
+// import Header from "./Header";
 import "./index.css";
-import LogIn from "./LogIn";
+// import LogIn from "./LogIn";
 import PropDrilling from "./PropDrilling";
 // import ToDo from "./ToDo";
 // import App from "./App";
 // import Toggler from "./Toogler";
 // import Counter from "./Counter";
 // import Input from "./Input";
-import SignUp from "./SignUp";
+// import SignUp from "./SignUp";
 
 ReactDOM.render(
   <React.StrictMode>

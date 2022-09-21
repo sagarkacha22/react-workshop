@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 
 export default function Counter({ count, setCount }) {
   //   let [count, updateCount] = useState(0);
