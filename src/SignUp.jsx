@@ -68,7 +68,7 @@ function SignUp() {
   return (
     <form id="signup" noValidate>
       <div className="">
-        <label className="form-label" style={{ marginRight: 15 }}>
+        <label className="form-label">
           Name:
         </label>
         <input
@@ -81,9 +81,9 @@ function SignUp() {
         ></input>
         <p className="warning-name invalid-feedback">Please enter your Name!</p>
       </div>
-      <hr style={{}} />
+      <hr />
       <div className="">
-        <label className="form-label" style={{ marginRight: 15 }}>
+        <label className="form-label">
           Email ID:
         </label>
         <input
@@ -100,9 +100,9 @@ function SignUp() {
           Please enter valid Email ID!
         </p>
       </div>
-      <hr style={{}} />
+      <hr />
       <div className="">
-        <label className="form-label" style={{ marginRight: 15 }}>
+        <label className="form-label">
           Age:
         </label>
         <input
@@ -115,41 +115,41 @@ function SignUp() {
         ></input>
         <p className="warning-age invalid-feedback">You must be above 18!</p>
       </div>
-      <hr style={{}} />
+      <hr />
       <div className="">
-        <label className="form-label" style={{ marginRight: 15 }}>
+        <label className="form-label">
           Gender:
         </label>
+        <label className="form-check-label">
         <input
           name="gender"
           value="male"
           className="form-check-input me-2"
           type="radio"
         ></input>
-        <label className="form-check-label" style={{ marginRight: 10 }}>
           Male
         </label>
+        <label className="form-check-label">
         <input
           name="gender"
           value="female"
           className="form-check-input me-2"
           type="radio"
         ></input>
-        <label className="form-check-label" style={{ marginRight: 10 }}>
           Female
         </label>
+        <label className="form-check-label">
         <input
           name="gender"
           value="na"
           className="form-check-input me-2"
           type="radio"
         ></input>
-        <label className="form-check-label" style={{ marginRight: 10 }}>
           Why do you care!
         </label>
         <p className="warning-gender invalid-feedback">Please choose Gender!</p>
       </div>
-      <hr style={{}} />
+      <hr />
       <div className="">
         <select
           id="location"
@@ -174,21 +174,21 @@ function SignUp() {
           Please select your Location!
         </p>
       </div>
-      <hr style={{}} />
+      <hr />
       <div className="">
         <input
           id="terms"
           className="form-check-input me-2"
           type="checkbox"
         ></input>
-        <label className="form-check-label">
+        <label className="form-check-label" htmlFor="terms">
           Tick this to go ahead! <b>*</b>
         </label>
         <p className="warning-terms invalid-feedback">
           Please agree to Terms & Conditions!
         </p>
       </div>
-      <hr style={{}} />
+      <hr />
       <button
         className="btn btn-outline-primary me-3"
         type="submit"

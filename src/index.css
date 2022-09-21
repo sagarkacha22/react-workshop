@@ -15,3 +15,11 @@ code {
 hr {
   width: 75%;
 }
+
+.form-label {
+  margin-right: 15px;
+}
+
+.form-check-label {
+  margin-right: 10px;
+}
