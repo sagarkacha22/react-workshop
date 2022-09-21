@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Body from "./Body";
+import Header from "./Header";
 import "./index.css";
 import LogIn from "./LogIn";
+import PropDrilling from "./PropDrilling";
 // import ToDo from "./ToDo";
 // import App from "./App";
 // import Toggler from "./Toogler";
@@ -27,7 +30,7 @@ ReactDOM.render(
 
     {/* <ToDo /> */}
 
-    <div className="container">
+    {/* <div className="container">
       <div className="row">
         <div className="col-sm border-end">
           <h3>Sign Up</h3><br />
@@ -38,7 +41,9 @@ ReactDOM.render(
           <LogIn />
         </div>
       </div>
-    </div>
+    </div> */}
+
+    <PropDrilling />
 
   </React.StrictMode>,
   document.getElementById("root")

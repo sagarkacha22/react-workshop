@@ -1,21 +1,12 @@
-import {useState} from "react"
+import React, { useState } from "react";
 
-export default function Counter() {
+export default function Counter({count, setCount}) {
+//   let [count, updateCount] = useState(0);
 
-    let [count, updateCount] = useState(0)
-
-    let countUpdate = () => {
-        updateCount(count + 1)
-    }
-
-    let resetCounter = () => {
-        updateCount(0)
-    }
-
-    return (
-        <div>
-            <button onClick={countUpdate}>{count}</button>
-            <button onClick={resetCounter}>reset</button>
-        </div>
-    )
+  return (
+    <div>
+      <button className="btn btn-primary me-3 mb-3" onClick={() => setCount(count + 1)}>{count}</button>
+      <button className="btn btn-primary me-3 mb-3" onClick={() => setCount(0)}>reset</button>
+    </div>
+  );
 }
