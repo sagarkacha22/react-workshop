@@ -4,13 +4,13 @@ function SignUp() {
   let [name, updateName] = useState("");
   let [emailValue, updateEmailValue] = useState("");
   let [locationValue, locationChange] = useState("");
-  let [age, updateAge] = useState("");
+  let [age, updateAge] = useState(0);
 
   let submitForm = (event) => {
     event.preventDefault();
     let isValidName = name ? true : false;
     let isValidEmail = emailValue ? true : false;
-    let isValidAge = age > 18 ? true : false;
+    let isValidAge = /^\d+$/.test(age) && age > 18 ? true : false;
     let isGenderSelected =
       document.querySelectorAll("[name=gender]:checked").length > 0
         ? true
