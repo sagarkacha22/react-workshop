@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import CounterContext from "./contexts";
 // import { useState } from "react";
 
-export default function Counter({ count, setCount }) {
+export default function Counter() {
   //   let [count, updateCount] = useState(0);
+
+  let [count, setCount] = useContext(CounterContext);
 
   return (
     <div>

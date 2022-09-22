@@ -1,11 +1,11 @@
 import Counter from "./Counter";
 import React from "react";
 
-function Body({ count, setCount }) {
+function Body() {
   return (
     <>
       <h4>Body</h4>
-      <Counter count={count} setCount={setCount} />
+      <Counter />
     </>
   );
 }

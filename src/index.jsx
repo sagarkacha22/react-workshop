@@ -44,7 +44,6 @@ ReactDOM.render(
     </div> */}
 
     <PropDrilling />
-
   </React.StrictMode>,
   document.getElementById("root")
 );

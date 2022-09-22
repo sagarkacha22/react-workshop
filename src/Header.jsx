@@ -1,13 +1,11 @@
 import Counter from "./Counter";
 import React from "react";
 
-function Header({ children }) {
-//   console.log(children)
+function Header() {
   return (
     <>
-      {/* <h4>Header</h4> */}
-      {children}
-      {/* <Counter count={count} setCount={setCount} /> */}
+      <h4>Header</h4>
+      <Counter />
     </>
   );
 }
