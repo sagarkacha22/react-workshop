@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { MdAdd } from "react-icons/md";
+// import { MdAdd } from "react-icons/md";
 import { v4 as uuid } from "uuid";
 // import TaskList from "./TaskList";
 
-function AddTask({ updateTaskList }) {
+function AddTask({ taskList, updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
 
   let addToDo = () => {
@@ -12,7 +12,7 @@ function AddTask({ updateTaskList }) {
         ...oldTaskList,
         { id: uuid(), task: taskInput },
       ]);
-      updateTaskInput("")
+    updateTaskInput("");
   };
 
   return (
@@ -29,9 +29,16 @@ function AddTask({ updateTaskList }) {
         className="btn btn-primary me-3"
         onClick={addToDo}
       >
-        <MdAdd />
+        {/* <MdAdd /> */}
+        Add
       </button>
-      <button className="btn btn-primary">Clear</button>
+      <button
+        className="btn btn-primary"
+        disabled={taskInput === "" && "disabled"}
+        onClick={() => updateTaskInput("")}
+      >
+        Clear
+      </button>
     </>
   );
 }
