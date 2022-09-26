@@ -9,7 +9,7 @@ function ToDoApp() {
   return (
     <>
       <div className="h-100 d-flex align-items-center justify-content-center m-5 px-5 pb-3">
-        <AddTask taskList={taskList} updateTaskList={updateTaskList} />
+        <AddTask updateTaskList={updateTaskList} />
       </div>
       <TaskContext.Provider value={[taskList, updateTaskList]}>
         <TaskList taskList={taskList} />

@@ -3,6 +3,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { ImMoveUp, ImMoveDown } from "react-icons/im";
 import TaskContext from "./contexts";
+// import TaskContext from "./contexts";
 
 // export default function Task({ task, taskChange, checked }) {
 //   return (
@@ -27,17 +28,43 @@ import TaskContext from "./contexts";
 //new
 
 export default function Task({ task }) {
+
   let [taskList, updateTaskList] = useContext(TaskContext);
 
-  const moveDownTask = (id) => {
-    task = taskList.filter((t) => t.id === id);
-    // console.log(task)
-
+  const moveDownTask = () => {
+    // console.log(taskList)
+    let selectedTask = taskList.filter((t) => t.id === task.id);
+    let index = taskList.indexOf(selectedTask[0])
+    let oldTaskList
+    oldTaskList = [...taskList]
+    let temp = oldTaskList[index]
+    oldTaskList[index] = oldTaskList[index+1]
+    oldTaskList[index+1] = temp
+    // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
+    updateTaskList(oldTaskList)
   };
 
-  const moveUpTask = (id) => {};
+  const moveUpTask = () => {
+    // console.log(taskList)
+    let selectedTask = taskList.filter((t) => t.id === task.id);
+    let index = taskList.indexOf(selectedTask[0])
+    let oldTaskList
+    oldTaskList = [...taskList]
+    let temp = oldTaskList[index]
+    oldTaskList[index] = oldTaskList[index-1]
+    oldTaskList[index-1] = temp
+    // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
+    updateTaskList(oldTaskList)
+  };
 
-  const deleteTask = () => {};
+  const deleteTask = () => {
+    let selectedTask = taskList.filter((t) => t.id === task.id);
+    let index = taskList.indexOf(selectedTask[0])
+    let oldTaskList
+    oldTaskList = [...taskList]
+    oldTaskList.splice(index, 1)
+    updateTaskList(oldTaskList)
+  }
 
   const editTask = () => {
     console.log("edit");
@@ -50,21 +77,19 @@ export default function Task({ task }) {
           <p>{task.task}</p>
         </div>
         <div className="col d-flex flex-row-reverse">
-          {console.log(taskList[0].id, task.id, taskList[taskList.length-1].id)}
-          {console.log(taskList[0].id === task.id)}
           <button
             className="moveDown btn btn-outline-primary me-2"
-            onClick={moveDownTask(task.id)}
+            onClick={moveDownTask}
             disabled={
-              taskList[taskList.length - 1].id === task.id ? true : false
+              taskList[taskList.length - 1] === task
             }
           >
             <ImMoveDown />
           </button>
           <button
             className="moveUp btn btn-outline-primary me-2"
-            onClick={moveUpTask(task.id)}
-            disabled={taskList[0].id === task.id && "disabled"}
+            onClick={moveUpTask}
+            disabled={taskList[0] === task}
           >
             <ImMoveUp />
           </button>

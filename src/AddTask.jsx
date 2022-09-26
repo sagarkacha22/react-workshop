@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 // import TaskList from "./TaskList";
 
-function AddTask({ taskList, updateTaskList }) {
+function AddTask({ updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
 
   let addToDo = () => {
