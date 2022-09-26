@@ -3,7 +3,6 @@ import React from "react";
 import Task from "./Task";
 
 function TaskList({ taskList }) {
-
   // let [taskList, updateTaskList] = useContext(TaskContext);
 
   // const moveDownTask = (task) => {
@@ -42,10 +41,7 @@ function TaskList({ taskList }) {
   // }
 
   return (
-    <div
-      id="taskList"
-      className="container w-75"
-    >
+    <div id="taskList" className="container w-75">
       {/* {console.log(taskList)} */}
       {taskList.map((task) => (
         // <li key={task.id}>

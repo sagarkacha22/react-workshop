@@ -28,43 +28,42 @@ import TaskContext from "./contexts";
 //new
 
 export default function Task({ task }) {
-
   let [taskList, updateTaskList] = useContext(TaskContext);
 
   const moveDownTask = () => {
     // console.log(taskList)
     let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0])
-    let oldTaskList
-    oldTaskList = [...taskList]
-    let temp = oldTaskList[index]
-    oldTaskList[index] = oldTaskList[index+1]
-    oldTaskList[index+1] = temp
+    let index = taskList.indexOf(selectedTask[0]);
+    let oldTaskList;
+    oldTaskList = [...taskList];
+    let temp = oldTaskList[index];
+    oldTaskList[index] = oldTaskList[index + 1];
+    oldTaskList[index + 1] = temp;
     // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
-    updateTaskList(oldTaskList)
+    updateTaskList(oldTaskList);
   };
 
   const moveUpTask = () => {
     // console.log(taskList)
     let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0])
-    let oldTaskList
-    oldTaskList = [...taskList]
-    let temp = oldTaskList[index]
-    oldTaskList[index] = oldTaskList[index-1]
-    oldTaskList[index-1] = temp
+    let index = taskList.indexOf(selectedTask[0]);
+    let oldTaskList;
+    oldTaskList = [...taskList];
+    let temp = oldTaskList[index];
+    oldTaskList[index] = oldTaskList[index - 1];
+    oldTaskList[index - 1] = temp;
     // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
-    updateTaskList(oldTaskList)
+    updateTaskList(oldTaskList);
   };
 
   const deleteTask = () => {
     let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0])
-    let oldTaskList
-    oldTaskList = [...taskList]
-    oldTaskList.splice(index, 1)
-    updateTaskList(oldTaskList)
-  }
+    let index = taskList.indexOf(selectedTask[0]);
+    let oldTaskList;
+    oldTaskList = [...taskList];
+    oldTaskList.splice(index, 1);
+    updateTaskList(oldTaskList);
+  };
 
   const editTask = () => {
     console.log("edit");
@@ -80,9 +79,7 @@ export default function Task({ task }) {
           <button
             className="moveDown btn btn-outline-primary me-2"
             onClick={moveDownTask}
-            disabled={
-              taskList[taskList.length - 1] === task
-            }
+            disabled={taskList[taskList.length - 1] === task}
           >
             <ImMoveDown />
           </button>
