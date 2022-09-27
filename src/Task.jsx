@@ -32,6 +32,7 @@ export default function Task({ task }) {
   let [taskList, updateTaskList] = useContext(TaskContext);
   let [editMode, updateEditMode] = useState(false);
   let [taskValue, updateTaskValue] = useState(task.task);
+  let [priorityValue, updatePriorityValue] = useState(task.priority);
 
   const moveDownTask = () => {
     // console.log(taskList)
@@ -77,18 +78,23 @@ export default function Task({ task }) {
     task.task = taskValue;
   };
 
+  const priorityChanged = (event) => {
+    updatePriorityValue(event.target.value)
+  }
+
   return (
     <div key={task.id} className="container">
       <div className="row">
-        <div className="col">
+        <div className="col d-flex align-items-center">
+          <input className="form-control flex-row me-3" style={{ width: "10%" }} value={priorityValue} onChange={(event) => priorityChanged(event)} />
           {editMode ? (
             <input
-              className="form-control w-75"
+              className="form-control w-75 flex-row"
               value={taskValue}
               onChange={(event) => updateTaskValue(event.target.value)}
             />
           ) : (
-            <p>{task.task}</p>
+            <div>{task.task}</div>
           )}
         </div>
         <div className="col d-flex flex-row-reverse">

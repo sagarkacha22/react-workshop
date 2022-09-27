@@ -10,7 +10,7 @@ function AddTask({ updateTaskList }) {
     taskInput &&
       updateTaskList((oldTaskList) => [
         ...oldTaskList,
-        { id: uuid(), task: taskInput },
+        { id: uuid(), priority: oldTaskList.length + 1, task: taskInput },
       ]);
     updateTaskInput("");
   };
