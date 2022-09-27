@@ -31,7 +31,7 @@ import TaskContext from "./contexts";
 export default function Task({ task }) {
   let [taskList, updateTaskList] = useContext(TaskContext);
   let [editMode, updateEditMode] = useState(false);
-  let [taskValue, updateTaskValue] = useState(task.task)
+  let [taskValue, updateTaskValue] = useState(task.task);
 
   const moveDownTask = () => {
     // console.log(taskList)
@@ -73,8 +73,8 @@ export default function Task({ task }) {
   };
 
   const saveTask = () => {
-    updateEditMode(false)
-    task.task = taskValue
+    updateEditMode(false);
+    task.task = taskValue;
   };
 
   return (
@@ -82,7 +82,11 @@ export default function Task({ task }) {
       <div className="row">
         <div className="col">
           {editMode ? (
-            <input className="form-control w-75" value={taskValue} onChange={(event) => updateTaskValue(event.target.value)} />
+            <input
+              className="form-control w-75"
+              value={taskValue}
+              onChange={(event) => updateTaskValue(event.target.value)}
+            />
           ) : (
             <p>{task.task}</p>
           )}
