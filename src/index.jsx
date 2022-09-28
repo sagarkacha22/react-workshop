@@ -48,21 +48,25 @@ import ToDoApp from "./ToDoApp";
 
 // async await
 const asyncAwait = async () => {
-  const fetchTodo68 = fetch(
-    "https://jsonplaceholder.typicode.com/todos/68"
-  ).then((res) => res.json());
-  const fetchTodo67 = await fetch(
-    "https://jsonplaceholder.typicode.com/todos/67"
-  );
-  const todo67 = await fetchTodo67.json();
-  const fetchAllTodos = await fetch(
-    "https://jsonplaceholder.typicode.com/todos"
-  );
-  const allTodos = await fetchAllTodos.json();
-  const promiseAll = await Promise.all([todo67, allTodos]);
-  console.log(promiseAll);
-  const todo68 = await fetchTodo68;
-  console.log(todo68);
+  try {
+    const fetchTodo68 = fetch(
+      "https://jsonplaceholder.typicode.com/todos/68"
+    ).then((res) => res.json());
+    const fetchTodo67 = await fetch(
+      "https://jsonplaceholder.typicode.com/todos/67"
+    );
+    const todo67 = await fetchTodo67.json();
+    const fetchAllTodos = await fetch(
+      "https://jsonplaceholder.typicode.comm/todos"
+    );
+    const allTodos = await fetchAllTodos.json();
+    const promiseAll = await Promise.all([todo67, allTodos]);
+    console.log(promiseAll);
+    const todo68 = await fetchTodo68;
+    console.log(todo68);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const fetchTodo1 = fetch("https://jsonplaceholder.typicode.com/todos/1").then(
