@@ -26,25 +26,37 @@ import ToDoApp from "./ToDoApp";
 //       .catch((err) => console.error(err))
 //   });
 
-fetch("https://jsonplaceholder.typicode.com/todos/67")
-  .then((res) => {
-    if (!res.ok) throw new Error("something went wrong!");
-    return res.json();
-  })
-  .then((body) => {
-    let title = body.title;
-    console.log(title);
-    fetch("https://jsonplaceholder.typicode.com/todos", {
-      method: "POST",
-      headers: new Headers().append("Content-Type", "application/json"),
-      body: JSON.stringify({
-        title,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log("yay! ", data.id));
-  })
-  .catch((err) => console.error(err));
+// fetch("https://jsonplaceholder.typicode.com/todos/67")
+//   .then((res) => {
+//     if (!res.ok) throw new Error("something went wrong!");
+//     return res.json();
+//   })
+//   .then((body) => {
+//     let title = body.title;
+//     console.log(title);
+//     fetch("https://jsonplaceholder.typicode.com/todos", {
+//       method: "POST",
+//       headers: new Headers().append("Content-Type", "application/json"),
+//       body: JSON.stringify({
+//         title,
+//       }),
+//     })
+//       .then((res) => res.json())
+//       .then((data) => console.log("yay! ", data.id));
+//   })
+//   .catch((err) => console.error(err));
+
+// async await
+const asyncAwait = async () => {
+  const fetchTodo = await fetch("https://jsonplaceholder.typicode.com/todos/67")
+  const todo = await fetchTodo.json()
+  const fetchAllTodos = await fetch("https://jsonplaceholder.typicode.com/todos")
+  const allTodos = await fetchAllTodos.json()
+  const promiseAll = await Promise.all([todo, allTodos])
+  console.log(promiseAll)
+}
+asyncAwait()
+
 /* promises end */
 
 ReactDOM.render(
