@@ -57,7 +57,7 @@ const asyncAwait = async () => {
     );
     const todo67 = await fetchTodo67.json();
     const fetchAllTodos = await fetch(
-      "https://jsonplaceholder.typicode.comm/todos"
+      "https://jsonplaceholder.typicode.com/todos"
     );
     const allTodos = await fetchAllTodos.json();
     const promiseAll = await Promise.all([todo67, allTodos]);
@@ -75,8 +75,7 @@ const fetchTodo1 = fetch("https://jsonplaceholder.typicode.com/todos/1").then(
 
 asyncAwait()
   .then(() => fetchTodo1)
-  .then(() => {});
-console.log("End!");
+  .then(() => console.log("End!"));
 
 // fetch("https://jsonplaceholder.typicode.com/todos/68")
 //   .then((res) => res.json())
