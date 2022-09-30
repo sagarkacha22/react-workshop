@@ -85,9 +85,9 @@ import ToDoApp from "./ToDoApp";
 
 // playing with json-server
 const createPost = async (data) => {
-  let headers = new Headers()
-  headers.append("Content-Type", "application/json")
-  headers.append("Accept", "application/json")
+  let headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
   try {
     await fetch("http://localhost:3000/posts", {
       headers,
@@ -103,20 +103,29 @@ const createPost = async (data) => {
 
 const getAllPosts = () => {
   fetch("http://localhost:3000/posts")
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err))
-}
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+};
 
 const getPost = (searchText = "", limit = 2) => {
-  const url = new URL("http://localhost:3000/posts")
-  url.searchParams.append('q', searchText)
-  url.searchParams.append('_limit', limit)
+  const url = new URL("http://localhost:3000/posts");
+  url.searchParams.append("q", searchText);
+  url.searchParams.append("_limit", limit);
   fetch(url)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err))
-}
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+};
+
+const sortByAuthor = () => {
+  const url = new URL("http://localhost:3000/posts");
+  url.searchParams.append("_sort", "author");
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+};
 
 ReactDOM.render(
   <React.StrictMode>
