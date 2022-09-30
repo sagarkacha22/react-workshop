@@ -47,41 +47,76 @@ import ToDoApp from "./ToDoApp";
 //   .catch((err) => console.error(err));
 
 // async await
-const asyncAwait = async () => {
-  try {
-    const fetchTodo68 = fetch(
-      "https://jsonplaceholder.typicode.com/todos/68"
-    ).then((res) => res.json());
-    const fetchTodo67 = await fetch(
-      "https://jsonplaceholder.typicode.com/todos/67"
-    );
-    const todo67 = await fetchTodo67.json();
-    const fetchAllTodos = await fetch(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
-    const allTodos = await fetchAllTodos.json();
-    const promiseAll = await Promise.all([todo67, allTodos]);
-    console.log(promiseAll);
-    const todo68 = await fetchTodo68;
-    console.log(todo68);
-  } catch (err) {
-    console.error(err);
-  }
-};
+// const asyncAwait = async () => {
+//   try {
+//     const fetchTodo68 = fetch(
+//       "https://jsonplaceholder.typicode.com/todos/68"
+//     ).then((res) => res.json());
+//     const fetchTodo67 = await fetch(
+//       "https://jsonplaceholder.typicode.com/todos/67"
+//     );
+//     const todo67 = await fetchTodo67.json();
+//     const fetchAllTodos = await fetch(
+//       "https://jsonplaceholder.typicode.com/todos"
+//     );
+//     const allTodos = await fetchAllTodos.json();
+//     const promiseAll = await Promise.all([todo67, allTodos]);
+//     console.log(promiseAll);
+//     const todo68 = await fetchTodo68;
+//     console.log(todo68);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 
-const fetchTodo1 = fetch("https://jsonplaceholder.typicode.com/todos/1").then(
-  (res) => res.json()
-);
+// const fetchTodo1 = fetch("https://jsonplaceholder.typicode.com/todos/1").then(
+//   (res) => res.json()
+// );
 
-asyncAwait()
-  .then(() => fetchTodo1)
-  .then(() => console.log("End!"));
+// asyncAwait()
+//   .then(() => fetchTodo1)
+//   .then(() => console.log("End!"));
 
 // fetch("https://jsonplaceholder.typicode.com/todos/68")
 //   .then((res) => res.json())
 //   .then(body => console.log(body))
 
 /* promises end */
+
+// playing with json-server
+const createPost = async (data) => {
+  let headers = new Headers()
+  headers.append("Content-Type", "application/json")
+  headers.append("Accept", "application/json")
+  try {
+    await fetch("http://localhost:3000/posts", {
+      headers,
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((body) => console.log(body));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getAllPosts = () => {
+  fetch("http://localhost:3000/posts")
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err))
+}
+
+const getPost = (searchText = "", limit = 2) => {
+  const url = new URL("http://localhost:3000/posts")
+  url.searchParams.append('q', searchText)
+  url.searchParams.append('_limit', limit)
+  fetch(url)
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err))
+}
 
 ReactDOM.render(
   <React.StrictMode>
