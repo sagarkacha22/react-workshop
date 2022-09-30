@@ -79,14 +79,26 @@ export default function Task({ task }) {
   };
 
   const priorityChanged = (event) => {
-    updatePriorityValue(event.target.value)
-  }
+    updatePriorityValue(event.target.value);
+    if (event.target.value) {
+      task.priority = Number(event.target.value);
+      let newTaskList = [...taskList].sort((a, b) => {
+        return a.priority - b.priority;
+      });
+      updateTaskList(newTaskList);
+    }
+  };
 
   return (
     <div key={task.id} className="container">
       <div className="row">
         <div className="col d-flex align-items-center">
-          <input className="form-control flex-row me-3" style={{ width: "10%" }} value={priorityValue} onChange={(event) => priorityChanged(event)} />
+          <input
+            className="form-control flex-row me-3"
+            style={{ width: "10%" }}
+            value={priorityValue}
+            onChange={(event) => priorityChanged(event)}
+          />
           {editMode ? (
             <input
               className="form-control w-75 flex-row"
