@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ImSpinner } from "react-icons/im";
 
 export default function UseEffect() {
   const [posts, setPosts] = useState([]);
@@ -40,7 +41,7 @@ export default function UseEffect() {
       console.error(error);
       updateIsError(true);
     }
-    // updatePostLoading(true);
+    updatePostLoading(true);
     updateLoading(false);
     // updateIsError(false);
   };
@@ -48,14 +49,26 @@ export default function UseEffect() {
   return (
     <>
       {isError && <h1>Something Went Wrong!</h1>}
-      {loading && <h1>Loading...</h1>}
+      {/* {loading && <h1>Loading...</h1>} */}
       <form onSubmit={createPost}>
-        <input name="title" />
-        <input name="author" />
-        <button type="submit">Create Post</button>
+        <div className="m-3 row">
+          <label className="col-sm-1 col-form-label">title: </label>
+          <div className="col-sm-3">
+            <input autoComplete="off" className="form-control" name="title" />
+          </div>
+        </div>
+        <div className="m-3 row">
+          <label className="col-sm-1 col-form-label">author: </label>
+          <div className="col-sm-3">
+            <input autoComplete="off" className="form-control" name="author" />
+          </div>
+        </div>
+        <button className="btn btn-outline-primary m-3" type="submit">
+          {loading ? <ImSpinner /> : "Create Post"}
+        </button>
       </form>
       {postLoading && <h1>Posts Loading...</h1>}
-      <pre>{JSON.stringify(posts, null, 2)}</pre>
+      <pre className="m-3">{JSON.stringify(posts, null, 2)}</pre>
     </>
   );
 }
