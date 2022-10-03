@@ -4,14 +4,10 @@ export default function Toggler() {
 
     let [visiblity, visibilityChange] = useState(true)
 
-    let clickHandler = () => {
-        visibilityChange(!visiblity)
-    }
-
     return (
         <div>
             { visiblity && <p>Hi there!</p> }
-            <button onClick={clickHandler}>toggle</button>
+            <button onClick={() => visibilityChange(!visiblity)}>toggle</button>
         </div>
     )
 }

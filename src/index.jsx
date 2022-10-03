@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 // import ToDo from "./ToDo";
-import ToDoApp from "./ToDoApp";
+// import ToDoApp from "./ToDoApp";
+import UseEffect from "./UseEffect";
 // import App from "./App";
 // import Toggler from "./Toogler";
 // import Counter from "./Counter";
@@ -84,48 +85,48 @@ import ToDoApp from "./ToDoApp";
 /* promises end */
 
 // playing with json-server
-const createPost = async (data) => {
-  let headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  headers.append("Accept", "application/json");
-  try {
-    await fetch("http://localhost:3000/posts", {
-      headers,
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((body) => console.log(body));
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const createPost = async (data) => {
+//   let headers = new Headers();
+//   headers.append("Content-Type", "application/json");
+//   headers.append("Accept", "application/json");
+//   try {
+//     await fetch("http://localhost:3000/posts", {
+//       headers,
+//       method: "POST",
+//       body: JSON.stringify(data),
+//     })
+//       .then((res) => res.json())
+//       .then((body) => console.log(body));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-const getAllPosts = () => {
-  fetch("http://localhost:3000/posts")
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
-};
+// const getAllPosts = () => {
+//   fetch("http://localhost:3000/posts")
+//     .then((res) => res.json())
+//     .then((data) => console.log(data))
+//     .catch((err) => console.error(err));
+// };
 
-const getPost = (searchText = "", limit = 2) => {
-  const url = new URL("http://localhost:3000/posts");
-  url.searchParams.append("q", searchText);
-  url.searchParams.append("_limit", limit);
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
-};
+// const getPost = (searchText = "", limit = 2) => {
+//   const url = new URL("http://localhost:3000/posts");
+//   url.searchParams.append("q", searchText);
+//   url.searchParams.append("_limit", limit);
+//   fetch(url)
+//     .then((res) => res.json())
+//     .then((data) => console.log(data))
+//     .catch((err) => console.error(err));
+// };
 
-const sortByAuthor = () => {
-  const url = new URL("http://localhost:3000/posts");
-  url.searchParams.append("_sort", "author");
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
-};
+// const sortByAuthor = () => {
+//   const url = new URL("http://localhost:3000/posts");
+//   url.searchParams.append("_sort", "author");
+//   fetch(url)
+//     .then((res) => res.json())
+//     .then((data) => console.log(data))
+//     .catch((err) => console.error(err));
+// };
 
 ReactDOM.render(
   <React.StrictMode>
@@ -145,7 +146,9 @@ ReactDOM.render(
 
     {/* <ToDo /> */}
 
-    <ToDoApp />
+    {/* <ToDoApp /> */}
+
+    <UseEffect />
   </React.StrictMode>,
   document.getElementById("root")
 );
