@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ImSpinner } from "react-icons/im";
+import axios from "axios";
 
 export default function UseEffect() {
   const [posts, setPosts] = useState([]);
@@ -9,12 +10,16 @@ export default function UseEffect() {
 
   useEffect(() => {
     if (!isError && !loading) {
-      fetch("http://localhost:3004/posts")
-        .then((res) => res.json())
-        .then((body) => {
-          setPosts(body);
-          updatePostLoading(false);
-        });
+      axios.get("http://localhost:3004/posts").then((body) => {
+        setPosts(body);
+        updatePostLoading(false);
+      });
+      // fetch("http://localhost:3004/posts")
+      //   .then((res) => res.json())
+      //   .then((body) => {
+      //     setPosts(body);
+      //     updatePostLoading(false);
+      //   });
     }
   }, [isError, loading]);
 
@@ -24,17 +29,21 @@ export default function UseEffect() {
     const title = formData.get("title");
     const author = formData.get("author");
 
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    // const headers = new Headers();
+    // headers.append("Content-Type", "application/json");
     try {
       updateLoading(true);
       updateIsError(false);
-      const res = await fetch("http://localhost:3004/posts", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ title, author }),
+      const data = await axios.post("http://localhost:3004/posts", {
+        title,
+        author,
       });
-      const data = res.json();
+      // const res = await fetch("http://localhost:3004/posts", {
+      //   method: "POST",
+      //   headers,
+      //   body: JSON.stringify({ title, author }),
+      // });
+      // const data = res.json();
       console.log(data);
       e.target.reset();
     } catch (error) {
@@ -68,7 +77,7 @@ export default function UseEffect() {
         </button>
       </form>
       {postLoading && <h1>Posts Loading...</h1>}
-      <pre className="m-3">{JSON.stringify(posts, null, 2)}</pre>
+      <pre className="m-3">{JSON.stringify(posts["data"], null, 2)}</pre>
     </>
   );
 }
