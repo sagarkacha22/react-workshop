@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 // import { MdAdd } from "react-icons/md";
 import { v4 as uuid } from "uuid";
@@ -7,6 +8,11 @@ function AddTask({ updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
 
   let addToDo = () => {
+    taskInput &&
+      axios.post("http://localhost:3000/toDo", {
+        id: uuid(),
+        task: taskInput,
+      });
     taskInput &&
       updateTaskList((oldTaskList) => [
         ...oldTaskList,

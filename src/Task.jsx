@@ -4,6 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { ImMoveUp, ImMoveDown } from "react-icons/im";
 import { TiTick } from "react-icons/ti";
 import TaskContext from "./contexts";
+import axios from "axios";
 // import TaskContext from "./contexts";
 
 // export default function Task({ task, taskChange, checked }) {
@@ -32,7 +33,7 @@ export default function Task({ task }) {
   let [taskList, updateTaskList] = useContext(TaskContext);
   let [editMode, updateEditMode] = useState(false);
   let [taskValue, updateTaskValue] = useState(task.task);
-  let [priorityValue, updatePriorityValue] = useState(task.priority);
+  // let [priorityValue, updatePriorityValue] = useState(task.priority);
 
   const moveDownTask = () => {
     // console.log(taskList)
@@ -61,6 +62,12 @@ export default function Task({ task }) {
   };
 
   const deleteTask = () => {
+    axios.delete("http://localhost:3000/toDo", {
+      params: {
+        id: task.id,
+      },
+    });
+
     let selectedTask = taskList.filter((t) => t.id === task.id);
     let index = taskList.indexOf(selectedTask[0]);
     let oldTaskList;
@@ -74,31 +81,43 @@ export default function Task({ task }) {
   };
 
   const saveTask = () => {
+    axios.put(
+      "http://localhost:3000/toDo",
+      {
+        task: task.task,
+      },
+      {
+        params: {
+          id: task.id,
+        },
+      }
+    );
+
     updateEditMode(false);
     task.task = taskValue;
   };
 
-  const priorityChanged = (event) => {
-    updatePriorityValue(event.target.value);
-    if (event.target.value) {
-      task.priority = Number(event.target.value);
-      let newTaskList = [...taskList].sort((a, b) => {
-        return a.priority - b.priority;
-      });
-      updateTaskList(newTaskList);
-    }
-  };
+  // const priorityChanged = (event) => {
+  //   updatePriorityValue(event.target.value);
+  //   if (event.target.value) {
+  //     task.priority = Number(event.target.value);
+  //     let newTaskList = [...taskList].sort((a, b) => {
+  //       return a.priority - b.priority;
+  //     });
+  //     updateTaskList(newTaskList);
+  //   }
+  // };
 
   return (
     <div key={task.id} className="container">
       <div className="row">
         <div className="col d-flex align-items-center">
-          <input
+          {/* <input
             className="form-control flex-row me-3"
             style={{ width: "10%" }}
             value={priorityValue}
             onChange={(event) => priorityChanged(event)}
-          />
+          /> */}
           {editMode ? (
             <input
               className="form-control w-75 flex-row"

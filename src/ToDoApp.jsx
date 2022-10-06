@@ -12,7 +12,7 @@ function ToDoApp() {
         <AddTask updateTaskList={updateTaskList} />
       </div>
       <TaskContext.Provider value={[taskList, updateTaskList]}>
-        <TaskList taskList={taskList} />
+        <TaskList taskList={taskList} updateTaskList={updateTaskList} />
       </TaskContext.Provider>
     </>
   );

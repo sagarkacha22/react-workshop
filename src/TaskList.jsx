@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import TaskContext from "./contexts";
 import Task from "./Task";
+import axios from "axios";
 
-function TaskList({ taskList }) {
+function TaskList({ taskList, updateTaskList }) {
+  useEffect(() => {
+    axios.get("http://localhost:3000/toDo").then((body) => {
+      updateTaskList(body["data"]);
+    });
+  }, []);
+
   // let [taskList, updateTaskList] = useContext(TaskContext);
 
   // const moveDownTask = (task) => {
@@ -43,11 +50,17 @@ function TaskList({ taskList }) {
   return (
     <div id="taskList" className="container w-75">
       {/* {console.log(taskList)} */}
-      {taskList.map((task) => (
+      {/* {taskList.map((task) => (
         // <li key={task.id}>
         //   <p>{task.task}</p>
         // </li>
 
+        <div key={task.id} className="row mb-2">
+          <Task task={task} />
+        </div>
+      ))} */}
+
+      {taskList.map((task) => (
         <div key={task.id} className="row mb-2">
           <Task task={task} />
         </div>
