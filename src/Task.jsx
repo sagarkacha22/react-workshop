@@ -29,6 +29,8 @@ import axios from "axios";
 
 //new
 
+const todoUrl = "http://localhost:3000/toDo/";
+
 export default function Task({ task }) {
   let [taskList, updateTaskList] = useContext(TaskContext);
   let [editMode, updateEditMode] = useState(false);
@@ -62,15 +64,20 @@ export default function Task({ task }) {
   };
 
   const deleteTask = async () => {
-    // console.log(task)
-    await axios.delete(`http://localhost:3000/toDo/${task.id}`);
+    try {
+      await axios.delete(task.id, {
+        baseURL: todoUrl,
+      });
 
-    let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0]);
-    let oldTaskList;
-    oldTaskList = [...taskList];
-    oldTaskList.splice(index, 1);
-    updateTaskList(oldTaskList);
+      let selectedTask = taskList.filter((t) => t.id === task.id);
+      let index = taskList.indexOf(selectedTask[0]);
+      let oldTaskList;
+      oldTaskList = [...taskList];
+      oldTaskList.splice(index, 1);
+      updateTaskList(oldTaskList);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const editTask = () => {
@@ -78,20 +85,29 @@ export default function Task({ task }) {
   };
 
   const saveTask = async () => {
-    // console.log(task)
-    await axios.put(`http://localhost:3000/toDo/${task.id}`, {
-      task: taskValue,
-    });
+    try {
+      await axios.put(
+        task.id,
+        {
+          task: taskValue,
+        },
+        {
+          baseURL: todoUrl,
+        }
+      );
 
-    updateEditMode(false);
-    task.task = taskValue;
+      updateEditMode(false);
+      task.task = taskValue;
 
-    let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0]);
-    let oldTaskList;
-    oldTaskList = [...taskList];
-    oldTaskList[index].task = task.task;
-    updateTaskList(oldTaskList);
+      let selectedTask = taskList.filter((t) => t.id === task.id);
+      let index = taskList.indexOf(selectedTask[0]);
+      let oldTaskList;
+      oldTaskList = [...taskList];
+      oldTaskList[index].task = task.task;
+      updateTaskList(oldTaskList);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // const priorityChanged = (event) => {
