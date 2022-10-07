@@ -61,8 +61,9 @@ export default function Task({ task }) {
     updateTaskList(oldTaskList);
   };
 
-  const deleteTask = () => {
-    axios.delete(`http://localhost:3000/toDo/${task.id}`);
+  const deleteTask = async () => {
+    // console.log(task)
+    await axios.delete(`http://localhost:3000/toDo/${task.id}`);
 
     let selectedTask = taskList.filter((t) => t.id === task.id);
     let index = taskList.indexOf(selectedTask[0]);
@@ -76,13 +77,21 @@ export default function Task({ task }) {
     updateEditMode(true);
   };
 
-  const saveTask = () => {
-    axios.put(`http://localhost:3000/toDo/${task.id}`, {
+  const saveTask = async () => {
+    // console.log(task)
+    await axios.put(`http://localhost:3000/toDo/${task.id}`, {
       task: taskValue,
     });
 
     updateEditMode(false);
     task.task = taskValue;
+
+    let selectedTask = taskList.filter((t) => t.id === task.id);
+    let index = taskList.indexOf(selectedTask[0]);
+    let oldTaskList;
+    oldTaskList = [...taskList];
+    oldTaskList[index].task = task.task;
+    updateTaskList(oldTaskList);
   };
 
   // const priorityChanged = (event) => {

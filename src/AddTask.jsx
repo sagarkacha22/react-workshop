@@ -8,15 +8,16 @@ function AddTask({ updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
 
   let addToDo = () => {
+    let id = uuid()
     taskInput &&
       axios.post("http://localhost:3000/toDo", {
-        id: uuid(),
+        id: id,
         task: taskInput,
       });
     taskInput &&
       updateTaskList((oldTaskList) => [
         ...oldTaskList,
-        { id: uuid(), priority: oldTaskList.length + 1, task: taskInput },
+        { id: id, task: taskInput },
       ]);
     updateTaskInput("");
   };
