@@ -62,11 +62,7 @@ export default function Task({ task }) {
   };
 
   const deleteTask = () => {
-    axios.delete("http://localhost:3000/toDo", {
-      params: {
-        id: task.id,
-      },
-    });
+    axios.delete(`http://localhost:3000/toDo/${task.id}`);
 
     let selectedTask = taskList.filter((t) => t.id === task.id);
     let index = taskList.indexOf(selectedTask[0]);
@@ -81,17 +77,9 @@ export default function Task({ task }) {
   };
 
   const saveTask = () => {
-    axios.put(
-      "http://localhost:3000/toDo",
-      {
-        task: task.task,
-      },
-      {
-        params: {
-          id: task.id,
-        },
-      }
-    );
+    axios.put(`http://localhost:3000/toDo/${task.id}`, {
+      task: taskValue,
+    });
 
     updateEditMode(false);
     task.task = taskValue;
