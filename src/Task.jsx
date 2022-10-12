@@ -36,6 +36,7 @@ export default function Task({ task }) {
   let [editMode, updateEditMode] = useState(false);
   let [taskValue, updateTaskValue] = useState(task.task);
   // let [priorityValue, updatePriorityValue] = useState(task.priority);
+  let [error, updateError] = useState(null);
 
   const moveDownTask = () => {
     // console.log(taskList)
@@ -77,6 +78,7 @@ export default function Task({ task }) {
       updateTaskList(oldTaskList);
     } catch (err) {
       console.error(err);
+      updateError(err);
     }
   };
 
@@ -107,8 +109,13 @@ export default function Task({ task }) {
       updateTaskList(oldTaskList);
     } catch (err) {
       console.error(err);
+      updateError(err);
     }
   };
+
+  if (error) {
+    throw error;
+  }
 
   // const priorityChanged = (event) => {
   //   updatePriorityValue(event.target.value);
