@@ -4,27 +4,42 @@ import Task from "./Task";
 import axios from "axios";
 import { FaSpinner } from "react-icons/fa";
 
-function TaskList({ taskList, updateTaskList }) {
-  let [loading, updateLoading] = useState(true);
-  let [isError, updateIsError] = useState(false);
+let isResolved = false;
+// let taskList = null;
+const getData = axios.get("http://localhost:3000/toDo")
 
-  useEffect(() => {
-    updateLoading(true);
-    axios
-      .get("http://localhost:3000/toDo")
-      .then((body) => {
-        updateLoading(false);
-        updateTaskList(body["data"]);
-      })
-      .catch((err) => {
-        updateIsError(true);
-        console.log(err);
-      });
-  }, []);
+function TaskList({ taskList, updateTaskList }) {
+
+  getData.then((res) => {
+    isResolved = true;
+    // taskList = res.data;
+    updateTaskList(res.data)
+  });
+
+  // let [loading, updateLoading] = useState(true);
+  // let [isError, updateIsError] = useState(false);
+
+  // useEffect(() => {
+  //   updateLoading(true);
+  //   axios
+  //     .get("http://localhost:3000/toDo")
+  //     .then((body) => {
+  //       updateLoading(false);
+  //       updateTaskList(body["data"]);
+  //     })
+  //     .catch((err) => {
+  //       updateIsError(true);
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  if (!isResolved) {
+    throw getData;
+  }
 
   return (
     <div id="taskList" className="container w-75">
-      {loading && (
+      {/* {loading && (
         <div
           className="loading d-flex justify-content-center"
           style={{ fontSize: 48 }}
@@ -39,14 +54,12 @@ function TaskList({ taskList, updateTaskList }) {
         >
           Opps! Something's not right.
         </div>
-      )}
-      {!loading &&
-        !isError &&
-        taskList.map((task) => (
-          <div key={task.id} className="row mb-2">
-            <Task task={task} />
-          </div>
-        ))}
+      )} */}
+      {taskList.map((task) => (
+        <div key={task.id} className="row mb-2">
+          <Task task={task} />
+        </div>
+      ))}
     </div>
   );
 }
