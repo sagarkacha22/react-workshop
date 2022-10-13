@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React from "react";
 // import TaskContext from "./contexts";
 import Task from "./Task";
 import axios from "axios";
-import { FaSpinner } from "react-icons/fa";
+// import { FaSpinner } from "react-icons/fa";
 
 let isResolved = false;
 // let taskList = null;
-const getData = axios.get("http://localhost:3000/toDo")
+const getData = axios.get("http://localhost:3000/toDo");
 
 function TaskList({ taskList, updateTaskList }) {
-
   getData.then((res) => {
     isResolved = true;
     // taskList = res.data;
-    updateTaskList(res.data)
+    updateTaskList(res.data);
   });
 
   // let [loading, updateLoading] = useState(true);
