@@ -1,12 +1,17 @@
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import "./index.css";
 // import ToDo from "./ToDo";
 import ToDoApp from "./ToDoApp";
+import UserProfileHeader from "./UserProfileHeader";
 // import App from "./App";
 // import Toggler from "./Toogler";
 // import Counter from "./Counter";
 // import Input from "./Input";
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,8 +31,14 @@ ReactDOM.render(
 
     {/* <ToDo /> */}
 
-    <ToDoApp />
-
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary fallback={<h1>Something went wrong!!</h1>}>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <UserProfileHeader />
+        </Suspense>
+      </ErrorBoundary>
+      <ToDoApp />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
