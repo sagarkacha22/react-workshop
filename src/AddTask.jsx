@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 // import { MdAdd } from "react-icons/md";
@@ -6,9 +7,10 @@ import { v4 as uuid } from "uuid";
 
 function AddTask({ updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
+  const queryClient = useQueryClient();
 
   let addToDo = () => {
-    let id = uuid()
+    let id = uuid();
     taskInput &&
       axios.post("http://localhost:3000/toDo", {
         id: id,
@@ -19,6 +21,11 @@ function AddTask({ updateTaskList }) {
         ...oldTaskList,
         { id: id, task: taskInput },
       ]);
+    const tasks = queryClient.getQueryData(["todos"]);
+    queryClient.setQueryData(
+      ["todos"],
+      [...tasks, { id: id, task: taskInput }]
+    );
     updateTaskInput("");
   };
 

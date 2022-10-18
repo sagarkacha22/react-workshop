@@ -1,14 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import Gravatar from "react-gravatar";
-import createResource from "./createResource";
+// import createResource from "./createResource";
 
-const userResource = createResource(
-  axios.get("http://localhost:3000/profile").then((res) => res.data)
-);
+// const userResource = createResource(
+//   axios.get("http://localhost:3000/profile").then((res) => res.data)
+// );
 
 export default function UserProfileHeader() {
-  const currentUser = userResource.read();
+  //   const currentUser = userResource.read();
+  const {
+    data: currentUser,
+  } = useQuery(
+    ["userProfile"],
+    () => axios.get("http://localhost:3000/profile").then((res) => res.data),
+    {
+      useErrorBoundary: true,
+      suspense: true,
+    }
+  );
+  // console.log(isLoading, isFetching, isError)
 
   return (
     <nav className="navbar navbar-dark bg-dark">

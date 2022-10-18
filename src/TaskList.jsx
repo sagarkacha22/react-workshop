@@ -55,7 +55,7 @@ function TaskList({ taskList, updateTaskList }) {
           Opps! Something's not right.
         </div>
       )} */}
-      {taskList.map((task) => (
+      {taskList?.map((task) => (
         <div key={task.id} className="row mb-2">
           <Task task={task} />
         </div>
