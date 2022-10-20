@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 // import TaskList from "./TaskList";
 
-function AddTask({ updateTaskList }) {
+function AddTask({ taskList, updateTaskList }) {
   let [taskInput, updateTaskInput] = useState("");
   // const queryClient = useQueryClient();
 
@@ -20,8 +20,14 @@ function AddTask({ updateTaskList }) {
         .then((res) => res.data);
     },
     {
-      onSuccess: (data, variables) => {
-        updateTaskList((oldTaskList) => [...oldTaskList, variables]);
+      onSuccess: (variables) => {
+        // console.log(taskList, variables)
+        // updateTaskList((oldTaskList) => {
+        //   console.log(oldTaskList, variables, [...oldTaskList, variables])
+        //   return [...oldTaskList, variables]
+        // });
+        updateTaskList([...taskList, variables])
+        updateTaskInput("");
       },
     }
   );
@@ -44,7 +50,6 @@ function AddTask({ updateTaskList }) {
     //   ["todos"],
     //   [...tasks, { id: id, task: taskInput }]
     // );
-    updateTaskInput("");
   };
 
   return (

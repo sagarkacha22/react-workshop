@@ -2,19 +2,23 @@
 import React from "react";
 // import TaskContext from "./contexts";
 import Task from "./Task";
-import axios from "axios";
+// import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 // import { FaSpinner } from "react-icons/fa";
 
-let isResolved = false;
+// let isResolved = false;
 // let taskList = null;
-const getData = axios.get("http://localhost:3000/toDo");
+// const getData = axios.get("http://localhost:3000/toDo");
 
 function TaskList({ taskList, updateTaskList }) {
-  getData.then((res) => {
-    isResolved = true;
-    // taskList = res.data;
-    updateTaskList(res.data);
-  });
+  const queryClient = useQueryClient();
+  taskList = queryClient.getQueryData(["todos"]);
+
+  // getData.then((res) => {
+  //   isResolved = true;
+  //   // taskList = res.data;
+  //   updateTaskList(res.data);
+  // });
 
   // let [loading, updateLoading] = useState(true);
   // let [isError, updateIsError] = useState(false);
@@ -33,9 +37,9 @@ function TaskList({ taskList, updateTaskList }) {
   //     });
   // }, []);
 
-  if (!isResolved) {
-    throw getData;
-  }
+  // if (!isResolved) {
+  //   throw getData;
+  // }
 
   return (
     <div id="taskList" className="container w-75">

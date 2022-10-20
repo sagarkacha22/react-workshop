@@ -15,18 +15,18 @@ function ToDoApp() {
 
   return (
     <>
-      <div className="h-100 d-flex align-items-center justify-content-center m-5 px-5 pb-3">
-        <AddTask updateTaskList={updateTaskList} />
-      </div>
-      {/* {isLoading && <h2>Loading...</h2>}
+      <TaskContext.Provider value={[taskList, updateTaskList]}>
+        <div className="h-100 d-flex align-items-center justify-content-center m-5 px-5 pb-3">
+          <AddTask taskList={taskList} updateTaskList={updateTaskList} />
+        </div>
+        {/* {isLoading && <h2>Loading...</h2>}
       {isError && <h2>SOmething went wrong!</h2>} */}
-      <ErrorBoundary fallback={<h1>Something went wrong!!</h1>}>
-        <Suspense fallback={<h1>Loading...</h1>}>
-          <TaskContext.Provider value={[taskList, updateTaskList]}>
+        <ErrorBoundary fallback={<h1>Something went wrong!!</h1>}>
+          <Suspense fallback={<h1>Loading...</h1>}>
             <TaskList taskList={taskList} updateTaskList={updateTaskList} />
-          </TaskContext.Provider>
-        </Suspense>
-      </ErrorBoundary>
+          </Suspense>
+        </ErrorBoundary>
+      </TaskContext.Provider>
     </>
   );
 }
