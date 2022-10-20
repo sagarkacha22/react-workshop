@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { IoLogoTux } from "react-icons/io";
 
 export default function HeaderNavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <NavLink className="navbar-brand" to="/">
-        Logo
+        <IoLogoTux />
       </NavLink>
       {/* <button
         className="navbar-toggler"
