@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { ImMoveUp, ImMoveDown } from "react-icons/im";
 import { TiTick } from "react-icons/ti";
-import TaskContext from "./contexts";
+// import TaskContext from "./contexts";
 import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 // import TaskContext from "./contexts";
 
 // export default function Task({ task, taskChange, checked }) {
@@ -32,64 +33,41 @@ import axios from "axios";
 const todoUrl = "http://localhost:3000/toDo/";
 
 export default function Task({ task }) {
-  let [taskList, updateTaskList] = useContext(TaskContext);
+  // let [taskList, updateTaskList] = useContext(TaskContext);
   let [editMode, updateEditMode] = useState(false);
   let [taskValue, updateTaskValue] = useState(task.task);
   // let [priorityValue, updatePriorityValue] = useState(task.priority);
   let [error, updateError] = useState(null);
+  const queryClient = useQueryClient();
+  let taskList = queryClient.getQueryData(["todos"]);
 
-  const moveDownTask = () => {
-    // console.log(taskList)
-    let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0]);
-    let oldTaskList;
-    oldTaskList = [...taskList];
-    let temp = oldTaskList[index];
-    oldTaskList[index] = oldTaskList[index + 1];
-    oldTaskList[index + 1] = temp;
-    // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
-    updateTaskList(oldTaskList);
-  };
-
-  const moveUpTask = () => {
-    // console.log(taskList)
-    let selectedTask = taskList.filter((t) => t.id === task.id);
-    let index = taskList.indexOf(selectedTask[0]);
-    let oldTaskList;
-    oldTaskList = [...taskList];
-    let temp = oldTaskList[index];
-    oldTaskList[index] = oldTaskList[index - 1];
-    oldTaskList[index - 1] = temp;
-    // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
-    updateTaskList(oldTaskList);
-  };
-
-  const deleteTask = async () => {
-    try {
-      await axios.delete(task.id, {
+  const deleteMutation = useMutation(
+    (id) => {
+      axios.delete(id, {
         baseURL: todoUrl,
       });
-
-      let selectedTask = taskList.filter((t) => t.id === task.id);
-      let index = taskList.indexOf(selectedTask[0]);
-      let oldTaskList;
-      oldTaskList = [...taskList];
-      oldTaskList.splice(index, 1);
-      updateTaskList(oldTaskList);
-    } catch (err) {
-      console.error(err);
-      updateError(err);
+    },
+    {
+      onSuccess: (data, variables) => {
+        let taskList = queryClient.getQueryData(["todos"]);
+        let selectedTask = taskList.filter((t) => t.id === variables);
+        let index = taskList.indexOf(selectedTask[0]);
+        let oldTaskList;
+        oldTaskList = [...taskList];
+        oldTaskList.splice(index, 1);
+        queryClient.setQueryData(["todos"], oldTaskList);
+        // updateTaskList(oldTaskList);
+      },
+      onError: (error) => {
+        updateError(error);
+      },
     }
-  };
+  );
 
-  const editTask = () => {
-    updateEditMode(true);
-  };
-
-  const saveTask = async () => {
-    try {
-      await axios.put(
-        task.id,
+  const editMutation = useMutation(
+    ({ id, taskValue }) => {
+      axios.put(
+        id,
         {
           task: taskValue,
         },
@@ -97,20 +75,102 @@ export default function Task({ task }) {
           baseURL: todoUrl,
         }
       );
+    },
+    {
+      onSuccess: (data, variables) => {
+        let taskList = queryClient.getQueryData(["todos"]);
+        updateEditMode(false);
+        variables.task = taskValue;
 
-      updateEditMode(false);
-      task.task = taskValue;
-
-      let selectedTask = taskList.filter((t) => t.id === task.id);
-      let index = taskList.indexOf(selectedTask[0]);
-      let oldTaskList;
-      oldTaskList = [...taskList];
-      oldTaskList[index].task = task.task;
-      updateTaskList(oldTaskList);
-    } catch (err) {
-      console.error(err);
-      updateError(err);
+        let selectedTask = taskList.filter((t) => t.id === variables.id);
+        let index = taskList.indexOf(selectedTask[0]);
+        let oldTaskList;
+        oldTaskList = [...taskList];
+        oldTaskList[index].task = variables.task;
+        queryClient.setQueryData(["todos"], oldTaskList);
+        // updateTaskList(oldTaskList);
+      },
+      onError: (error) => {
+        updateError(error);
+      },
     }
+  );
+
+  const moveDownTask = () => {
+    // // console.log(taskList)
+    // let selectedTask = taskList.filter((t) => t.id === task.id);
+    // let index = taskList.indexOf(selectedTask[0]);
+    // let oldTaskList;
+    // oldTaskList = [...taskList];
+    // let temp = oldTaskList[index];
+    // oldTaskList[index] = oldTaskList[index + 1];
+    // oldTaskList[index + 1] = temp;
+    // // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
+    // updateTaskList(oldTaskList);
+  };
+
+  const moveUpTask = () => {
+    // // console.log(taskList)
+    // let selectedTask = taskList.filter((t) => t.id === task.id);
+    // let index = taskList.indexOf(selectedTask[0]);
+    // let oldTaskList;
+    // oldTaskList = [...taskList];
+    // let temp = oldTaskList[index];
+    // oldTaskList[index] = oldTaskList[index - 1];
+    // oldTaskList[index - 1] = temp;
+    // // [oldTaskList[index], oldTaskList[index+1]] = [oldTaskList[index+1], oldTaskList[index]]
+    // updateTaskList(oldTaskList);
+  };
+
+  const deleteTask = async () => {
+    // try {
+    //   await axios.delete(task.id, {
+    //     baseURL: todoUrl,
+    //   });
+
+    //   let selectedTask = taskList.filter((t) => t.id === task.id);
+    //   let index = taskList.indexOf(selectedTask[0]);
+    //   let oldTaskList;
+    //   oldTaskList = [...taskList];
+    //   oldTaskList.splice(index, 1);
+    //   updateTaskList(oldTaskList);
+    // } catch (err) {
+    //   console.error(err);
+    //   updateError(err);
+    // }
+    deleteMutation.mutate(task.id);
+  };
+
+  const editTask = () => {
+    updateEditMode(true);
+  };
+
+  const saveTask = async () => {
+    // try {
+    //   await axios.put(
+    //     task.id,
+    //     {
+    //       task: taskValue,
+    //     },
+    //     {
+    //       baseURL: todoUrl,
+    //     }
+    //   );
+
+    //   updateEditMode(false);
+    //   task.task = taskValue;
+
+    //   let selectedTask = taskList.filter((t) => t.id === task.id);
+    //   let index = taskList.indexOf(selectedTask[0]);
+    //   let oldTaskList;
+    //   oldTaskList = [...taskList];
+    //   oldTaskList[index].task = task.task;
+    //   updateTaskList(oldTaskList);
+    // } catch (err) {
+    //   console.error(err);
+    //   updateError(err);
+    // }
+    editMutation.mutate({ id: task.id, taskValue });
   };
 
   if (error) {

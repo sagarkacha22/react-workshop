@@ -1,4 +1,4 @@
-// import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
@@ -6,49 +6,53 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 // import TaskList from "./TaskList";
 
-function AddTask({ taskList, updateTaskList }) {
-  let [taskInput, updateTaskInput] = useState("");
-  // const queryClient = useQueryClient();
+function AddTask() {
+  let [task, updateTask] = useState("");
+  const queryClient = useQueryClient();
 
   const { isLoading, mutate } = useMutation(
-    ({ id, taskInput }) => {
+    ({ id, task }) => {
       axios
         .post("http://localhost:3000/toDo", {
-          id: id,
-          task: taskInput,
+          id,
+          task,
         })
         .then((res) => res.data);
     },
     {
-      onSuccess: (variables) => {
+      onSuccess: (data, variables) => {
         // console.log(taskList, variables)
         // updateTaskList((oldTaskList) => {
         //   console.log(oldTaskList, variables, [...oldTaskList, variables])
         //   return [...oldTaskList, variables]
         // });
-        updateTaskList([...taskList, variables])
-        updateTaskInput("");
+        const tasks = queryClient.getQueryData(["todos"]);
+        // console.log(queryClient.getQueryData(["todos"]))
+        queryClient.setQueryData(["todos"], [...tasks, variables]);
+        // console.log(queryClient.getQueryData(["todos"]))
+        // updateTaskList([...taskList, variables]);
+        updateTask("");
       },
     }
   );
 
   let addToDo = () => {
-    let id = uuid();
-    // taskInput &&
+    // let id = uuid();
+    // task &&
     //   axios.post("http://localhost:3000/toDo", {
     //     id: id,
-    //     task: taskInput,
+    //     task: task,
     //   });
-    // taskInput &&
+    // task &&
     //   updateTaskList((oldTaskList) => [
     //     ...oldTaskList,
-    //     { id: id, task: taskInput },
+    //     { id: id, task: task },
     //   ]);
-    taskInput && mutate({ id, taskInput });
+    task && mutate({ id: uuid(), task });
     // const tasks = queryClient.getQueryData(["todos"]);
     // queryClient.setQueryData(
     //   ["todos"],
-    //   [...tasks, { id: id, task: taskInput }]
+    //   [...tasks, { id: id, task: task }]
     // );
   };
 
@@ -58,12 +62,12 @@ function AddTask({ taskList, updateTaskList }) {
         className="me-3 form-control w-50"
         disabled={isLoading}
         autoComplete="off"
-        value={taskInput}
+        value={task}
         id="inputTask"
-        onChange={(event) => updateTaskInput(event.target.value)}
+        onChange={(event) => updateTask(event.target.value)}
       ></input>
       <button
-        disabled={(isLoading || taskInput === "") && "disabled"}
+        disabled={(isLoading || task === "") && "disabled"}
         className="btn btn-primary me-3"
         onClick={addToDo}
       >
@@ -72,8 +76,8 @@ function AddTask({ taskList, updateTaskList }) {
       </button>
       <button
         className="btn btn-primary"
-        disabled={taskInput === "" && "disabled"}
-        onClick={() => updateTaskInput("")}
+        disabled={task === "" && "disabled"}
+        onClick={() => updateTask("")}
       >
         Clear
       </button>
