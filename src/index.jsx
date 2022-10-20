@@ -1,17 +1,21 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { Suspense } from "react";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
 import ReactDOM from "react-dom";
-import { ErrorBoundary } from "react-error-boundary";
+// import { ErrorBoundary } from "react-error-boundary";
+// import App from "./App";
 import "./index.css";
 // import ToDo from "./ToDo";
-import ToDoApp from "./ToDoApp";
-import UserProfileHeader from "./UserProfileHeader";
+// import ToDoApp from "./ToDoApp";
+// import UserProfileHeader from "./UserProfileHeader";
 // import App from "./App";
 // import Toggler from "./Toogler";
 // import Counter from "./Counter";
 // import Input from "./Input";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./AppRouter";
+import HeaderNavBar from "./HeaderNavBar";
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,14 +35,19 @@ ReactDOM.render(
 
     {/* <ToDo /> */}
 
-    <QueryClientProvider client={queryClient}>
+    {/* <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallback={<h1>Something went wrong!!</h1>}>
         <Suspense fallback={<h1>Loading...</h1>}>
           <UserProfileHeader />
         </Suspense>
       </ErrorBoundary>
       <ToDoApp />
-    </QueryClientProvider>
+    </QueryClientProvider> */}
+
+    <BrowserRouter>
+      <HeaderNavBar />
+      <AppRouter />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
